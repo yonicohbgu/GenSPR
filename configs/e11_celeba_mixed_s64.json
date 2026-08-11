@@ -1,0 +1,114 @@
+{
+  "image": {
+    "size": 64,
+    "channels": 1
+  },
+  "encoder": {
+    "base_enc": 4,
+    "active_bits": 7,
+    "minimum": 0,
+    "maximum": 255,
+    "clip_input": true
+  },
+  "architecture": {
+    "num_layers": 3,
+    "split_factor": 4
+  },
+  "spatial_pooler": {
+    "L0": {
+      "inputDimensions": [
+        64,
+        64
+      ],
+      "columnDimensions": [
+        32,
+        32
+      ],
+      "globalInhibition": true,
+      "seed": 42,
+      "spVerbosity": 1,
+      "wrapAround": false,
+      "potentialRadius": 30,
+      "boostStrength": 7,
+      "dutyCyclePeriod": 850,
+      "localAreaDensity": 0.1,
+      "minPctOverlapDutyCycle": 0.2,
+      "potentialPct": 0.2,
+      "stimulusThreshold": 6,
+      "synPermActiveInc": 0.12,
+      "synPermConnected": 0.6,
+      "synPermInactiveDec": 0.02
+    },
+    "L1": {
+      "inputDimensions": [
+        64,
+        64
+      ],
+      "columnDimensions": [
+        32,
+        32
+      ],
+      "globalInhibition": true,
+      "seed": 42,
+      "spVerbosity": 1,
+      "wrapAround": false,
+      "potentialRadius": 16,
+      "boostStrength": 5,
+      "dutyCyclePeriod": 850,
+      "localAreaDensity": 0.15,
+      "minPctOverlapDutyCycle": 0.2,
+      "potentialPct": 0.2,
+      "stimulusThreshold": 6,
+      "synPermActiveInc": 0.12,
+      "synPermConnected": 0.6,
+      "synPermInactiveDec": 0.02
+    }
+  },
+  "global": {
+    "random_seed": 42,
+    "learning_enabled": true,
+    "merge_method": "concatenate",
+    "use_skip_connections": false,
+    "layer_weights": null,
+    "staged_learning": false,
+    "initial_stability_epochs": 5,
+    "learning_schedule": {}
+  },
+  "cnn": {
+    "inner_dim": 64,
+    "conv_filters": [
+      64,
+      128,
+      64
+    ],
+    "conv_kernels": [
+      5,
+      3,
+      3,
+      3
+    ],
+    "leaky_relu_alpha": 0.2,
+    "learning_rate": 0.001,
+    "betas": [
+      0.5,
+      0.999
+    ],
+    "loss_weights": {
+      "mse": 0.15,
+      "ssim": 0.85
+    },
+    "checkpoint_frequency": 2
+  },
+  "training": {
+    "batch_size": 256,
+    "total_size": 9600,
+    "patience": 10,
+    "min_delta": 0.001
+  },
+  "runtime": {
+    "save_path": "e11_celeba_mixed_s64",
+    "data_path": "data/celeba_mixed",
+    "mask_ratio": 0.15,
+    "device": "mps"
+  }
+}
