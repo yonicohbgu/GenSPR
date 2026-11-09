@@ -264,12 +264,13 @@ def get_per_class_subsets(dataset, n_classes):
 # ---------------------------------------------------------------------------
 def train_fastgan_single_class(dataset, indices, image_size, device,
                                 save_dir, latent_dim=256, epochs=400,
-                                batch_size=16, n_gen=50):
+                                batch_size=16, n_gen=50, replicate_to=2000,
+                                max_replicas=500):
     """Train FastGAN on one class and generate n_gen images."""
     os.makedirs(save_dir, exist_ok=True)
 
     n_actual = len(indices)
-    replicas = max(1, min(500, 2000 // max(n_actual, 1)))
+    replicas = max(1, min(max_replicas, replicate_to // max(n_actual, 1)))
     total_size = n_actual * replicas
     batch_size = min(batch_size, total_size)
     if batch_size < 2:
